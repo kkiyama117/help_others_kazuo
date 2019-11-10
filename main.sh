@@ -7,9 +7,11 @@
 __my_main () {
 	PRE_IFS=$IFS
 	IFS=$'\n'
+
 	for line in $@
 	do
-		echo -e "`__my_convert "${line}"`\n"
+		__line_answer=`__my_convert "${line}"`
+		echo "$__line_answer\n"
 	done
 	IFS=$PRE_IFS
 	return 0
@@ -29,5 +31,5 @@ else
 	__str=$@
 fi
 # 処理
-echo `__my_main "${__str}"`
+echo -e `__my_main "${__str}"`
 

@@ -35,7 +35,7 @@ __my_convert () {
 			echo ">${var1}"
 			return 0
 		else
-			echo $1
+			echo "$1"
 			return 0
 		fi
 	# no argument
