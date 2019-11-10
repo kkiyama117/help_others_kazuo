@@ -7,12 +7,17 @@
 __my_main () {
 	PRE_IFS=$IFS
 	IFS=$'\n'
+	__answer=""
 
 	for line in $@
 	do
 		__line_answer=`__my_convert "${line}"`
-		echo "$__line_answer\n"
+		# 末尾に結合
+		# 全部雑にメモリに突っ込んでから出力してるので, 本当は良くないかもしれん
+		# 
+		__answer="$__answer\n$__line_answer"
 	done
+	echo "$__answer"
 	IFS=$PRE_IFS
 	return 0
 }
@@ -31,5 +36,6 @@ else
 	__str=$@
 fi
 # 処理
+# 最後に \n 等を評価
 echo -e `__my_main "${__str}"`
 

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 # Function to convert line with rule.
 __my_convert () {
@@ -48,6 +48,29 @@ __my_convert () {
 	return 1
 }
 
-# my_convert ${1}
-# if you want to call 'MyConvert' with only one arg even if it includes space charactor, use below
-# my_Convert "$1"
+
+# run script file
+# パラメータの受け取り
+# pipe でも引数でも受け取れるようにした
+if [ -p /dev/stdin ]; then
+	if [ "`echo $@`" == "" ]; then 
+		__str=`cat -`
+	else
+		__str=$@
+	fi
+else
+	__str=$@
+fi
+# 処理
+PRE_IFS=$IFS
+IFS=$'\n'
+
+for line in $__str
+do
+	__line_answer=`__my_convert "${line}"`
+	echo -e "$__line_answer"
+done
+
+IFS=$PRE_IFS
+
+exit 0
